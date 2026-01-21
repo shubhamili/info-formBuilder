@@ -1,7 +1,5 @@
 import mongoose, { Schema } from "mongoose";
 
-
-
 const formSchema = new Schema({
     name: {
         type: String,
