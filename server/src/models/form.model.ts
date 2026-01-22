@@ -15,7 +15,8 @@ const formSchema = new Schema({
     },
     version: {
         type: Number,
-        required: false
+        required: false,
+        default: 1.00
 
     },
     isActive: {
