@@ -4,24 +4,25 @@ import { form } from "../models/form.model.js";
 export const createForm = async (req: Request, res: Response) => {
 
     try {
-        const { name, description, schema, version } = req.body;
+        const { name, description, schema } = req.body;
 
-        if (!name || !description || !schema) {
+        if (!name || !schema || !schema.fields?.length) {
             return res.status(400).json({
                 success: false,
-                message: "fill required fields",
-            })
+                message: "Form name and fields are required",
+            });
         }
 
         const created = await form.create({
-            name, description, schema, version
-        })
-
-
-        // console.log("created", created);
+            name,
+            description,
+            schema,
+            version: 1
+        });
 
         return res.status(201).json({
-            success: false,
+            success: true,
+
             message: "form created",
             data: created
         })
