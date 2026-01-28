@@ -27,3 +27,21 @@ Complex validation logic.
 Event-driven backend ([Node.js](http://node.js/) + message queue like Redis or RabbitMQ).
 
 Optional frontend: minimal form builder UI.
+
+
+
+# Why This Project Is Strong
+
+This project shows:
+
+Dynamic schema modeling
+
+Rule engines
+
+Event-driven architecture
+
+Async background jobs
+
+Scalable backend thinking
+
+Real SaaS patterns
