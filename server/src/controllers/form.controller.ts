@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import { form } from "../models/form.model.js";
+import { FormResponse } from "../models/formResponse.model.js";
 
 export const createForm = async (req: Request, res: Response) => {
 
@@ -65,3 +66,48 @@ export const getForm = async (req: Request, res: Response) => {
     }
 
 }
+
+export const submitFormResponse = async (req: Request, res: Response) => {
+    try {
+        const { formId, email, responseData } = req.body;
+
+        if (!email || !responseData) {
+            return res.status(400).json({
+                success: false,
+                message: "Email and response data are required",
+            });
+        }
+
+        const formDoc = await form.findById(formId);
+
+        if (!formDoc || !formDoc.isActive) {
+            return res.status(404).json({
+                success: false,
+                message: "Form not found or inactive",
+            });
+        }
+
+        // 🔴 For now: skip validation
+        // (we’ll add it next)
+
+        const savedResponse = await FormResponse.create({
+            email,
+            formId: formDoc._id,
+            formVersion: formDoc.version ?? 1,
+            responseData,
+        });
+
+        return res.status(201).json({
+            success: true,
+            message: "Form submitted successfully",
+            data: savedResponse,
+        });
+
+    } catch (error) {
+        console.error("submit form error:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Server error",
+        });
+    }
+};
