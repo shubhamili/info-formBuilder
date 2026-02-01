@@ -111,3 +111,30 @@ export const submitFormResponse = async (req: Request, res: Response) => {
         });
     }
 };
+
+
+
+export const getFormResponses = async (req: Request, res: Response) => {
+    try {
+        const { formId } = req.params;
+        if (!formId) {
+            return res.status(400).json({
+                success: false,
+                message: "Form ID is required",
+            });
+        }
+        const responses = await FormResponse.find({ formId }).lean();
+
+        return res.status(200).json({
+            success: true,
+            message: "Form responses fetched successfully",
+            data: responses,
+        });
+    } catch (error) {
+        console.error("get form responses error:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Server error",
+        });
+    }
+}
