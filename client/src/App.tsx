@@ -1,8 +1,7 @@
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import './App.css'
 import FormList from './pages/FormList'
-import { CreateForm } from './pages/CreateForm'
+import CreateForm from './pages/CreateForm'
 
 function App() {
 
